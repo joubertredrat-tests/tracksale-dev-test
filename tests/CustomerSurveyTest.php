@@ -33,6 +33,17 @@ class CustomerSurveyTest extends AppTestCase
     }
 
     /**
+     * @return void
+     */
+    public function testCustomerCanNotBeImpacted(): void
+    {
+        $customerDocument = '12801867128';
+
+        self::assertFalse(true);
+        self::assertSame($customerDocument, "");
+    }
+
+    /**
      * @return SurveyServiceInterface
      * @throws \Exception
      */
