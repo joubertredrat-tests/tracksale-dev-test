@@ -7,6 +7,7 @@
 
 namespace App\Application\Service;
 
+use App\Domain\Exception\Service\SurveyService\CustomerNotFoundException;
 use App\Domain\Model\Survey;
 use App\Domain\Repository\SurveyRepositoryInterface;
 use App\Domain\Service\SurveyServiceInterface;
@@ -74,6 +75,7 @@ class SurveyService implements SurveyServiceInterface
 
     /**
      * {@inheritdoc}
+     * @throws CustomerNotFoundException
      */
     public function customerRemove(string $customerDocument): bool
     {
@@ -81,6 +83,10 @@ class SurveyService implements SurveyServiceInterface
             ->surveyRepository
             ->getByCustomerDocument($customerDocument)
         ;
+
+        if (!$survey instanceof Survey) {
+            throw CustomerNotFoundException::notFoundOnDatabase($customerDocument);
+        }
 
         $this
             ->surveyRepository

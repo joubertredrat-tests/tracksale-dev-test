@@ -8,6 +8,7 @@
 namespace App\Tests;
 
 use App\Application\Service\SurveyService;
+use App\Domain\Exception\Service\SurveyService\CustomerNotFoundException;
 use App\Domain\Model\Survey;
 use App\Domain\Repository\SurveyRepositoryInterface;
 use App\Domain\Service\SurveyServiceInterface;
@@ -65,10 +66,14 @@ class CustomerSurveyTest extends AppTestCase
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function testRemoveCustomerDataNotFound(): void
     {
-        self::expectException(\Exception::class);
+        self::expectException(CustomerNotFoundException::class);
+
+        $service = $this->getService();
+        $service->customerRemove('00011100011');
     }
 
     /**
