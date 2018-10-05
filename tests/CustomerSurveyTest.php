@@ -64,6 +64,14 @@ class CustomerSurveyTest extends AppTestCase
     }
 
     /**
+     * @return void
+     */
+    public function testRemoveCustomerDataNotFound(): void
+    {
+        self::expectException(\Exception::class);
+    }
+
+    /**
      * @return SurveyRepositoryInterface
      * @throws \Exception
      */
