@@ -1,0 +1,7 @@
+services:
+    app.application.service.survey:
+        class: App\Application\Service\SurveyService
+        public: true
+        autowire: true
+        arguments:
+            $impactDaysInterval: '%app.parameters.impact_days_interval%'

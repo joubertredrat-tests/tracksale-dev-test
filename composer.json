@@ -11,6 +11,7 @@
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "redrat/entity-datetime": "^0.1.0",
         "symfony/console": "^4.1",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.1",
@@ -69,10 +70,17 @@
         "clear-folder-structure": [
             "bash scripts/clear-folder-structure.bash"
         ],
+        "tests-bootstrap": [
+            "bin/console doctrine:database:drop --force --env=test",
+            "bin/console doctrine:database:create --env=test",
+            "bin/console doctrine:schema:create --env=test"
+        ],
         "tests": [
+            "@tests-bootstrap",
             "vendor/phpunit/phpunit/phpunit -c scripts/. --no-coverage"
         ],
         "tests-coverage": [
+            "@tests-bootstrap",
             "vendor/phpunit/phpunit/phpunit -c scripts/."
         ],
         "psr2": [

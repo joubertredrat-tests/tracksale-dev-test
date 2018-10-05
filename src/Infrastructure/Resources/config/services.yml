@@ -1,1 +1,4 @@
 # Infrastructure services file
+imports:
+- { resource: 'services/application.yml' }
+- { resource: 'services/repository.yml' }

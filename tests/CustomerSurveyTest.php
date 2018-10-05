@@ -7,6 +7,9 @@
 
 namespace App\Tests;
 
+use App\Application\Service\SurveyService;
+use App\Domain\Service\SurveyServiceInterface;
+
 /**
  * CustomerSurvey Test
  *
@@ -15,14 +18,32 @@ namespace App\Tests;
 class CustomerSurveyTest extends AppTestCase
 {
     /**
-     * test CustomerCanBeImpacted
-     *
      * @return void
+     * @throws \Exception
      */
     public function testCustomerCanBeImpacted(): void
     {
-        $result = false;
+        $service = $this->getService();
+
+        $survey = $service->checkCustomer('12801867128');
+        $result = $survey->isAllowImpact();
 
         self::assertTrue($result);
+    }
+
+    /**
+     * @return SurveyServiceInterface
+     * @throws \Exception
+     */
+    public function getService(): SurveyServiceInterface
+    {
+        $repo = $this
+            ->getContainer()
+            ->get('app.infrastructure.repository.survey')
+        ;
+
+        $daysInterval = 90;
+
+        return new SurveyService($repo, $daysInterval);
     }
 }

@@ -1,0 +1,5 @@
+services:
+    app.infrastructure.repository.survey:
+        class: App\Infrastructure\Repository\SurveyRepository
+        public: true
+        autowire: true

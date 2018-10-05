@@ -1,0 +1,27 @@
+App\Domain\Model\Survey:
+    type: entity
+    repositoryClass: App\Infrastructure\Repository\SurveyRepository
+
+    lifecycleCallbacks:
+        prePersist: [ forgeCreatedAt ]
+        preUpdate: [ forgeUpdatedAt ]
+
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: auto
+
+    fields:
+        customerDocument:
+            type: string
+            length: 50
+        dateImpactStart:
+            type: date
+        dateImpactEnd:
+            type: date
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+            nullable: true
