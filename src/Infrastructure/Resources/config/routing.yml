@@ -2,3 +2,13 @@ api_index:
     path: /
     controller: App\Controller\IndexController::index
     methods: GET
+
+api_customer_check:
+    path: /customers/{customerDocument}
+    controller: App\Controller\CustomerController::check
+    methods: GET
+
+api_customer_remove:
+    path: /customers/{customerDocument}
+    controller: App\Controller\CustomerController::remove
+    methods: DELETE

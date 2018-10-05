@@ -77,6 +77,18 @@ class Survey
     }
 
     /**
+     * @param string|null $format
+     * @return string
+     */
+    public function getDateImpactStartString(?string $format = null): ?string
+    {
+        return $this
+            ->getDateImpactStart()
+            ->format($format ?? 'Y-m-d')
+        ;
+    }
+
+    /**
      * @param \DateTime $dateImpactStart
      * @return void
      */
@@ -91,6 +103,18 @@ class Survey
     public function getDateImpactEnd(): \DateTime
     {
         return $this->dateImpactEnd;
+    }
+
+    /**
+     * @param string|null $format
+     * @return string
+     */
+    public function getDateImpactEndString(?string $format = null): ?string
+    {
+        return $this
+            ->getDateImpactEnd()
+            ->format($format ?? 'Y-m-d')
+        ;
     }
 
     /**
