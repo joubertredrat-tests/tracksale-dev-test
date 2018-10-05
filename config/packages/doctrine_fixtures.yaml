@@ -1,0 +1,9 @@
+doctrine_fixtures:
+
+#services:
+#    _defaults:
+#        tags: ['doctrine.fixture.orm']
+#        autowire: true # if you need dependency injection, see next bullet point
+#
+#    App\Infrastructure\Fixtures\:
+#        resource: '%kernel.project_dir%/src/Infrastructure/Fixtures/*'

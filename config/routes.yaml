@@ -1,0 +1,3 @@
+cmobi_api:
+    resource: "../src/Infrastructure/Resources/config/routing.yml"
+    prefix: /api
