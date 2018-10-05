@@ -70,6 +70,17 @@ class SurveyRepository extends ServiceEntityRepository implements SurveyReposito
 
     /**
      * {@inheritdoc}
+     */
+    public function getByCustomerDocument(string $customerDocument): ?Survey
+    {
+        /** @var Survey $survey */
+        $survey = $this->findOneBy(['customerDocument' => $customerDocument]);
+
+        return $survey;
+    }
+
+    /**
+     * {@inheritdoc}
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -78,5 +89,17 @@ class SurveyRepository extends ServiceEntityRepository implements SurveyReposito
         $entityManager = $this->getEntityManager();
         $entityManager->persist($survey);
         $entityManager->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Survey $survey): void
+    {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($survey);
+        $entityManager->flush($survey);
     }
 }

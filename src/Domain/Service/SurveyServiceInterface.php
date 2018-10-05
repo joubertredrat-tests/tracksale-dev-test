@@ -20,5 +20,11 @@ interface SurveyServiceInterface
      * @param string $customerDocument
      * @return Survey
      */
-    public function checkCustomer(string $customerDocument): Survey;
+    public function customerCheck(string $customerDocument): Survey;
+
+    /**
+     * @param string $customerDocument
+     * @return bool
+     */
+    public function customerRemove(string $customerDocument): bool;
 }

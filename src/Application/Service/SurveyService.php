@@ -45,7 +45,7 @@ class SurveyService implements SurveyServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function checkCustomer(string $customerDocument): Survey
+    public function customerCheck(string $customerDocument): Survey
     {
         $survey = $this
             ->surveyRepository
@@ -70,6 +70,24 @@ class SurveyService implements SurveyServiceInterface
         ;
 
         return $survey;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function customerRemove(string $customerDocument): bool
+    {
+        $survey = $this
+            ->surveyRepository
+            ->getByCustomerDocument($customerDocument)
+        ;
+
+        $this
+            ->surveyRepository
+            ->delete($survey)
+        ;
+
+        return true;
     }
 
     /**

@@ -28,7 +28,7 @@ class CustomerSurveyTest extends AppTestCase
         $service = $this->getService();
         $customerDocument = '12801867128';
 
-        $survey = $service->checkCustomer($customerDocument);
+        $survey = $service->customerCheck($customerDocument);
 
         self::assertTrue($survey->isAllowImpact());
         self::assertSame($customerDocument, $survey->getCustomerDocument());
@@ -43,7 +43,7 @@ class CustomerSurveyTest extends AppTestCase
         $service = $this->getService();
         $customerDocument = $this->getSurveyPreviousAdded();
 
-        $survey = $service->checkCustomer($customerDocument);
+        $survey = $service->customerCheck($customerDocument);
 
         self::assertFalse($survey->isAllowImpact());
         self::assertSame($customerDocument, $survey->getCustomerDocument());
@@ -51,10 +51,16 @@ class CustomerSurveyTest extends AppTestCase
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function testRemoveCustomerData(): void
     {
-        self::assertTrue(false);
+        $service = $this->getService();
+        $customerDocument = $this->getSurveyForRemove();
+
+        $result = $service->customerRemove($customerDocument);
+
+        self::assertTrue($result);
     }
 
     /**

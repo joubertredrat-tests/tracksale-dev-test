@@ -27,8 +27,20 @@ interface SurveyRepositoryInterface
     ): ?Survey;
 
     /**
+     * @param string $customerDocument
+     * @return Survey|null
+     */
+    public function getByCustomerDocument(string $customerDocument): ?Survey;
+
+    /**
      * @param Survey $survey
      * @return void
      */
     public function add(Survey $survey): void;
+
+    /**
+     * @param Survey $survey
+     * @return void
+     */
+    public function delete(Survey $survey): void;
 }
