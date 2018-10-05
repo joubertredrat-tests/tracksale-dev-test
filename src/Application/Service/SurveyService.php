@@ -81,7 +81,7 @@ class SurveyService implements SurveyServiceInterface
     {
         $survey = $this
             ->surveyRepository
-            ->getByCustomerDocument($customerDocument)
+            ->getSurveyIntoImpact($customerDocument, new \DateTime('today'))
         ;
 
         if (!$survey instanceof Survey) {

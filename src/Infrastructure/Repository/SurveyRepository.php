@@ -70,20 +70,6 @@ class SurveyRepository extends ServiceEntityRepository implements SurveyReposito
 
     /**
      * {@inheritdoc}
-     */
-    public function getByCustomerDocument(string $customerDocument): ?Survey
-    {
-        /** @var Survey $survey */
-        $survey = $this->findOneBy(
-            ['customerDocument' => $customerDocument],
-            ['id' => 'desc']
-        );
-
-        return $survey;
-    }
-
-    /**
-     * {@inheritdoc}
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
