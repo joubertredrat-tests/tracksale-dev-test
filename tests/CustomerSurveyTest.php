@@ -8,6 +8,8 @@
 namespace App\Tests;
 
 use App\Application\Service\SurveyService;
+use App\Domain\Model\Survey;
+use App\Domain\Repository\SurveyRepositoryInterface;
 use App\Domain\Service\SurveyServiceInterface;
 
 /**
@@ -34,13 +36,29 @@ class CustomerSurveyTest extends AppTestCase
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function testCustomerCanNotBeImpacted(): void
     {
-        $customerDocument = '12801867128';
+        $service = $this->getService();
+        $customerDocument = $this->getSurveyPreviousAdded();
 
-        self::assertFalse(true);
-        self::assertSame($customerDocument, "");
+        $survey = $service->checkCustomer($customerDocument);
+
+        self::assertFalse($survey->isAllowImpact());
+        self::assertSame($customerDocument, $survey->getCustomerDocument());
+    }
+
+    /**
+     * @return SurveyRepositoryInterface
+     * @throws \Exception
+     */
+    public function getRepository(): SurveyRepositoryInterface
+    {
+        return $this
+            ->getContainer()
+            ->get('app.infrastructure.repository.survey')
+        ;
     }
 
     /**
@@ -49,13 +67,34 @@ class CustomerSurveyTest extends AppTestCase
      */
     public function getService(): SurveyServiceInterface
     {
-        $repo = $this
-            ->getContainer()
-            ->get('app.infrastructure.repository.survey')
-        ;
-
+        $repo = $this->getRepository();
         $daysInterval = 90;
 
         return new SurveyService($repo, $daysInterval);
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function getSurveyPreviousAdded(): string
+    {
+        $customerDocument = '74326782862';
+        $dateImpactStart = new \DateTime('today');
+        $dateImpactStart->modify('-30 days');
+        $dateImpactEnd = new \DateTime('today');
+        $dateImpactEnd->modify('+60 days');
+
+        $survey = new Survey();
+        $survey->setCustomerDocument($customerDocument);
+        $survey->setDateImpactStart($dateImpactStart);
+        $survey->setDateImpactEnd($dateImpactEnd);
+
+        $this
+            ->getRepository()
+            ->add($survey)
+        ;
+
+        return $customerDocument;
     }
 }

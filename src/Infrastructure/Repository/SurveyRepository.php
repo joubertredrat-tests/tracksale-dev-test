@@ -48,10 +48,10 @@ class SurveyRepository extends ServiceEntityRepository implements SurveyReposito
                             ->eq('s.customerDocument', ':customerDocument'),
                         $queryBuilder
                             ->expr()
-                            ->gte('s.dateImpactStart', ':dateImpactStart'),
+                            ->lte('s.dateImpactStart', ':dateImpactStart'),
                         $queryBuilder
                             ->expr()
-                            ->lte('s.dateImpactEnd', ':dateImpactEnd')
+                            ->gte('s.dateImpactEnd', ':dateImpactEnd')
                     )
             )
             ->setParameter('customerDocument', $customerDocument)
@@ -65,8 +65,7 @@ class SurveyRepository extends ServiceEntityRepository implements SurveyReposito
             return null;
         }
 
-        dump($data);
-        die;
+        return $data[0];
     }
 
     /**
