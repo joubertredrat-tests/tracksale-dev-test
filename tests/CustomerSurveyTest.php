@@ -24,11 +24,12 @@ class CustomerSurveyTest extends AppTestCase
     public function testCustomerCanBeImpacted(): void
     {
         $service = $this->getService();
+        $customerDocument = '12801867128';
 
-        $survey = $service->checkCustomer('12801867128');
-        $result = $survey->isAllowImpact();
+        $survey = $service->checkCustomer($customerDocument);
 
-        self::assertTrue($result);
+        self::assertTrue($survey->isAllowImpact());
+        self::assertSame($customerDocument, $survey->getCustomerDocument());
     }
 
     /**
