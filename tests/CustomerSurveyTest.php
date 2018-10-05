@@ -50,6 +50,14 @@ class CustomerSurveyTest extends AppTestCase
     }
 
     /**
+     * @return void
+     */
+    public function testRemoveCustomerData(): void
+    {
+        self::assertTrue(false);
+    }
+
+    /**
      * @return SurveyRepositoryInterface
      * @throws \Exception
      */
@@ -80,6 +88,31 @@ class CustomerSurveyTest extends AppTestCase
     public function getSurveyPreviousAdded(): string
     {
         $customerDocument = '74326782862';
+        $dateImpactStart = new \DateTime('today');
+        $dateImpactStart->modify('-30 days');
+        $dateImpactEnd = new \DateTime('today');
+        $dateImpactEnd->modify('+60 days');
+
+        $survey = new Survey();
+        $survey->setCustomerDocument($customerDocument);
+        $survey->setDateImpactStart($dateImpactStart);
+        $survey->setDateImpactEnd($dateImpactEnd);
+
+        $this
+            ->getRepository()
+            ->add($survey)
+        ;
+
+        return $customerDocument;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function getSurveyForRemove(): string
+    {
+        $customerDocument = '19391512607';
         $dateImpactStart = new \DateTime('today');
         $dateImpactStart->modify('-30 days');
         $dateImpactEnd = new \DateTime('today');
