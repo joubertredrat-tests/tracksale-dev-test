@@ -11,7 +11,6 @@ use App\Application\Presenter\SurveyPresenter;
 use App\Domain\Exception\Service\SurveyService\CustomerNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Customer Controller
@@ -33,9 +32,9 @@ class CustomerController extends Controller
 
             return new JsonResponse($surveyPresenter->toArray());
         } catch (\Throwable $e) {
-            throw new HttpException(
-                JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
-                $e->getMessage()
+            return new JsonResponse(
+                ['message' => $e->getMessage()],
+                JsonResponse::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }
@@ -52,14 +51,14 @@ class CustomerController extends Controller
 
             return new JsonResponse(['removed' => $response]);
         } catch (CustomerNotFoundException $e) {
-            throw new HttpException(
-                JsonResponse::HTTP_BAD_REQUEST,
-                $e->getMessage()
+            return new JsonResponse(
+                ['message' => $e->getMessage()],
+                JsonResponse::HTTP_BAD_REQUEST
             );
         } catch (\Throwable $e) {
-            throw new HttpException(
-                JsonResponse::HTTP_INTERNAL_SERVER_ERROR,
-                $e->getMessage()
+            return new JsonResponse(
+                ['message' => $e->getMessage()],
+                JsonResponse::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }
