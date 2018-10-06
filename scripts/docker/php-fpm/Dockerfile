@@ -25,6 +25,8 @@ RUN echo "APP_ENV=prod" > /var/www/html/.env && \
     echo "DATABASE_URL=sqlite:///%kernel.project_dir%/var/data/prod.sqlite" >> /var/www/html/.env && \
     echo "IMPACT_DAYS_INTERVAL=90" >> /var/www/html/.env
 
+RUN mkdir /var/www/html/var/data
+
 RUN php /var/www/html/bin/console doctrine:database:create
 
 RUN php /var/www/html/bin/console doctrine:schema:create
